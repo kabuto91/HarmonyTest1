@@ -21,6 +21,10 @@ function lineStyle() {
 struct LoginPage {
 
   packStack: NavPathStack = new NavPathStack()
+
+  @State username: string = '';
+  @State password: string = '';
+  @State isRememberUser: boolean = true
   build() {
     Navigation(this.packStack) {
       Column() {
@@ -39,6 +43,17 @@ struct LoginPage {
             .inputStyle()
           Line()
             .lineStyle()
+          Flex({ alignItems: ItemAlign.Center, justifyContent: FlexAlign.SpaceBetween }) {
+            Row() {
+              Checkbox({ name: 'isRememberUser' })
+                .select(this.isRememberUser)
+                .shape(CheckBoxShape.ROUNDED_SQUARE)
+              Text($r('app.string.login_remember_user'))
+            }
+            Text($r('app.string.forget_password'))
+          }
+          .width('100%')
+          .margin({ top: '12vp' })
         }
       }
       .width('100%')
@@ -51,5 +66,6 @@ struct LoginPage {
     .hideTitleBar(true)
     .hideToolBar(true)
     .backgroundColor('#F1F3F5')
+    .mode(NavigationMode.Stack)
   }
 }

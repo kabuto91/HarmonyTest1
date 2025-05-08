@@ -19,6 +19,14 @@
     {
       "name": "Login_Password_PlaceHolder",
       "value": "请输入密码"
+    },
+    {
+      "name": "login_remember_user",
+      "value": "记住账号"
+    },
+    {
+      "name": "forget_password",
+      "value": "忘记密码"
     }
   ]
 }
