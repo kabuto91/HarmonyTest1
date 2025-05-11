@@ -1,3 +1,6 @@
+import PreferencesUtil from '../common/database/PreferenceUtil';
+import LoggingUtil from '../common/utils/logging';
+
 
 @Extend(TextInput)
 function inputStyle() {
@@ -24,7 +27,18 @@ struct LoginPage {
 
   @State username: string = '';
   @State password: string = '';
-  @State isRememberUser: boolean = true
+  @State isRememberUser: boolean = false
+
+  aboutToAppear() {
+    LoggingUtil.info(0x0000, 'test', '%{public}s', 'start')
+    const loginUser = PreferencesUtil.getLoginUser()
+    LoggingUtil.info(0x0000, 'test', '%{public}s', `user: ${loginUser}`)
+    if (loginUser) {
+      this.isRememberUser = true
+      this.username = loginUser
+    }
+  }
+
   build() {
     Navigation(this.packStack) {
       Column() {
@@ -33,9 +47,12 @@ struct LoginPage {
             .width('78vp')
             .height('78vp')
             .margin({ bottom: '24vp' })
-          TextInput({ placeholder: $r('app.string.Login_User_PlaceHolder') })
+          TextInput({ placeholder: $r('app.string.Login_User_PlaceHolder'), text: this.username })
             .maxLength(11)
             .inputStyle()
+            .onChange((value: string) => {
+              this.username = value;
+            })
           Line()
             .lineStyle()
           TextInput({ placeholder: $r('app.string.Login_Password_PlaceHolder') })
@@ -54,6 +71,24 @@ struct LoginPage {
           }
           .width('100%')
           .margin({ top: '12vp' })
+          .onClick(() => {
+            this.isRememberUser = !this.isRememberUser
+
+
+          })
+          Button($r('app.string.login_button'))
+            .type(ButtonType.ROUNDED_RECTANGLE)
+            .width('40%')
+            .margin({ top: '24vp' })
+            .borderRadius(16)
+            .onClick(() => {
+              LoggingUtil.info(0x0000, 'test', '%{public}s', `isRemember: ${this.isRememberUser}`)
+              LoggingUtil.info(0x0000, 'test', '%{public}s', `username: ${this.username}`)
+              if (this.isRememberUser && this.username) {
+                PreferencesUtil.saveLoginUser(this.username)
+              }
+            })
+
         }
       }
       .width('100%')

@@ -1,11 +1,13 @@
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
+import PreferenceUtil from '../common/database/PreferenceUtil';
 import LoggingUtil from '../common/utils/logging'
 
 const DOMAIN = 0x0000;
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    PreferenceUtil.getUserPreferences(this.context)
     this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
     LoggingUtil.info(DOMAIN, 'testTag', '%{public}s', 'Ability onCreate');
   }

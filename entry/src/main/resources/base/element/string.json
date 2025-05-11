@@ -27,6 +27,10 @@
     {
       "name": "forget_password",
       "value": "忘记密码"
+    },
+    {
+      "name": "login_button",
+      "value": "登录"
     }
   ]
 }
