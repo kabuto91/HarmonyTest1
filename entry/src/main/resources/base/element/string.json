@@ -31,6 +31,14 @@
     {
       "name": "login_button",
       "value": "登录"
+    },
+    {
+      "name": "login_title",
+      "value": "登录界面"
+    },
+    {
+      "name": "login_description",
+      "value": "登录以获取更多服务信息"
     }
   ]
 }

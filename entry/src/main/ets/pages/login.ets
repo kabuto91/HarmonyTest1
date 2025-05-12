@@ -46,16 +46,27 @@ struct LoginPage {
           Image($r('app.media.startIcon'))
             .width('78vp')
             .height('78vp')
-            .margin({ bottom: '24vp' })
+            .margin({ bottom: '12vp' })
+          Text($r('app.string.login_title'))
+            .fontColor('#333')
+            .fontSize('24vp')
+            .fontWeight(600)
+            .margin({ bottom: '8vp' })
+          Text($r('app.string.login_description'))
+            .fontColor('#999')
+            .fontSize('16vp')
           TextInput({ placeholder: $r('app.string.Login_User_PlaceHolder'), text: this.username })
             .maxLength(11)
             .inputStyle()
             .onChange((value: string) => {
               this.username = value;
+              if (value && this.isRememberUser) {
+                PreferencesUtil.saveLoginUser(value);
+              }
             })
           Line()
             .lineStyle()
-          TextInput({ placeholder: $r('app.string.Login_Password_PlaceHolder') })
+          TextInput({ placeholder: $r('app.string.Login_Password_PlaceHolder'), text: this.password })
             .type(InputType.Password)
             .inputStyle()
           Line()
@@ -73,8 +84,9 @@ struct LoginPage {
           .margin({ top: '12vp' })
           .onClick(() => {
             this.isRememberUser = !this.isRememberUser
-
-
+            if (this.isRememberUser && this.username) {
+              PreferencesUtil.saveLoginUser(this.username)
+            }
           })
           Button($r('app.string.login_button'))
             .type(ButtonType.ROUNDED_RECTANGLE)
@@ -82,13 +94,8 @@ struct LoginPage {
             .margin({ top: '24vp' })
             .borderRadius(16)
             .onClick(() => {
-              LoggingUtil.info(0x0000, 'test', '%{public}s', `isRemember: ${this.isRememberUser}`)
-              LoggingUtil.info(0x0000, 'test', '%{public}s', `username: ${this.username}`)
-              if (this.isRememberUser && this.username) {
-                PreferencesUtil.saveLoginUser(this.username)
-              }
+              LoggingUtil.info(0x0000, 'test', '%{public}s', 'click')
             })
-
         }
       }
       .width('100%')
