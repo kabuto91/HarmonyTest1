@@ -39,6 +39,10 @@
     {
       "name": "login_description",
       "value": "登录以获取更多服务信息"
+    },
+    {
+      "name": "login_confirm_error_tips",
+      "value": "账号密码不正确，请重新输入！"
     }
   ]
 }
