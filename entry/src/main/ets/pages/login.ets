@@ -48,7 +48,7 @@ struct LoginPage {
       }, 2000)
     } else {
       promptAction.showToast({
-        message: '账号密码不正确，请重新输入！'
+        message: $r('app.string.login_confirm_error_tips')
       })
     }
   }
