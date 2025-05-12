@@ -1,6 +1,6 @@
 import PreferencesUtil from '../common/database/PreferenceUtil';
 import LoggingUtil from '../common/utils/logging';
-
+import { promptAction } from '@kit.ArkUI';
 
 @Extend(TextInput)
 function inputStyle() {
@@ -28,6 +28,7 @@ struct LoginPage {
   @State username: string = '';
   @State password: string = '';
   @State isRememberUser: boolean = false
+  @State isLoading: boolean = false
 
   aboutToAppear() {
     LoggingUtil.info(0x0000, 'test', '%{public}s', 'start')
@@ -36,6 +37,19 @@ struct LoginPage {
     if (loginUser) {
       this.isRememberUser = true
       this.username = loginUser
+    }
+  }
+
+  loginClick() {
+    if (this.username === 'user' && this.password === '123456') {
+      this.isLoading = true
+      setTimeout(() => {
+        this.isLoading = false
+      }, 2000)
+    } else {
+      promptAction.showToast({
+        message: '账号密码不正确，请重新输入！'
+      })
     }
   }
 
@@ -69,6 +83,9 @@ struct LoginPage {
           TextInput({ placeholder: $r('app.string.Login_Password_PlaceHolder'), text: this.password })
             .type(InputType.Password)
             .inputStyle()
+            .onChange((value: string) => {
+              this.password = value;
+            })
           Line()
             .lineStyle()
           Flex({ alignItems: ItemAlign.Center, justifyContent: FlexAlign.SpaceBetween }) {
@@ -95,13 +112,30 @@ struct LoginPage {
             .borderRadius(16)
             .onClick(() => {
               LoggingUtil.info(0x0000, 'test', '%{public}s', 'click')
+              this.loginClick()
             })
+
+
         }
+
+
       }
       .width('100%')
       .height('100%')
       .padding({ left: '24vp', right: '24vp' })
       .justifyContent(FlexAlign.Center)
+
+      if (this.isLoading) {
+        Column() {
+          LoadingProgress()
+            .color('#182431')
+            .width('30vp')
+            .height('30vp')
+        }
+        .width('100%')
+        .position({ top: '45%' })
+        .alignItems(HorizontalAlign.Center)
+      }
     }
     .width('100%')
     .height('100%')
