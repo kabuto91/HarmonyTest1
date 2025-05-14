@@ -45,6 +45,7 @@ struct LoginPage {
       this.isLoading = true
       setTimeout(() => {
         this.isLoading = false
+        this.packStack.pushPathByName('mainPage', null)
       }, 2000)
     } else {
       promptAction.showToast({
