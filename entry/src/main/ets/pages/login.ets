@@ -110,6 +110,7 @@ struct LoginPage {
             .type(ButtonType.ROUNDED_RECTANGLE)
             .width('40%')
             .margin({ top: '24vp' })
+            .backgroundColor($r('app.color.theme_color'))
             .borderRadius(16)
             .onClick(() => {
               LoggingUtil.info(0x0000, 'test', '%{public}s', 'click')

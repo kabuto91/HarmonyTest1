@@ -43,6 +43,14 @@
     {
       "name": "login_confirm_error_tips",
       "value": "账号密码不正确，请重新输入！"
+    },
+    {
+      "name": "tab_title_home",
+      "value": "主页"
+    },
+    {
+      "name": "tab_title_mime",
+      "value": "我的"
     }
   ]
 }
