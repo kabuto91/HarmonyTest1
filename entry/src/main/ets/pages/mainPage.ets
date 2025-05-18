@@ -4,7 +4,7 @@ export function mainPageBuilder() {
   mainPage()
 }
 
-@Preview
+@Entry
 @Component
 export struct mainPage {
   @State pathStack: NavPathStack = new NavPathStack()
@@ -55,6 +55,7 @@ export struct mainPage {
       .height('100%')
       .barMode(BarMode.Fixed)
       .vertical(false)
+      .divider({ strokeWidth: '1vp' })
       .onChange((index: number) => {
         this.selectedIndex = index
       })
